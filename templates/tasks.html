@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tasks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="page">
+
+
+<div class="container">
+    <h2>All Tasks</h2>
+
+    <div class="top-actions">
+    <a href="/add-task" class="action-btn add">
+        <span class="icon">+</span>
+        <span>Add Task</span>
+    </a>
+
+    <a href="/logout" class="action-btn logout">
+        <span class="icon">⎋</span>
+        <span>Logout</span>
+    </a>
+</div>
+
+
+    <div class="task-list">
+        {% for task in tasks %}
+            <div class="card">
+                <h3>{{ task["title"] }}</h3>
+                <p>Status: <strong>{{ task["status"] }}</strong></p>
+
+                <div class="status-actions">
+                    <a href="/update-status/{{ task['id'] }}/Pending">Pending</a>
+                    <a href="/update-status/{{ task['id'] }}/In Progress">In Progress</a>
+                    <a href="/update-status/{{ task['id'] }}/Done">Done</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {% if page > 1 %}
+            <a href="/tasks?page={{ page - 1 }}">⬅ Previous</a>
+        {% endif %}
+        <a href="/tasks?page={{ page + 1 }}">Next ➡</a>
+    </div>
+</div>
+</div>
+<script>
+    document.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", function (e) {
+            if (this.target === "_blank") return;
+
+            e.preventDefault();
+            const page = document.querySelector(".page");
+            page.classList.add("fade-out");
+
+            setTimeout(() => {
+                window.location.href = this.href;
+            }, 400);
+        });
+    });
+</script>
+
+</body>
+</html>

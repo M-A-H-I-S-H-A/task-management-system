@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="page">
+
+<div class="login-container">
+    <div class="login-card">
+        <h1>Welcome Back</h1>
+        <p class="subtitle">Access the Task System</p>
+
+        <form method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</div>
+</div>
+<script>
+    document.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", function (e) {
+            if (this.target === "_blank") return;
+
+            e.preventDefault();
+            const page = document.querySelector(".page");
+            page.classList.add("fade-out");
+
+            setTimeout(() => {
+                window.location.href = this.href;
+            }, 400);
+        });
+    });
+</script>
+
+</body>
+</html>
